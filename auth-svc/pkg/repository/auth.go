@@ -1,6 +1,7 @@
 package repository
 
 import (
+	"errors"
 	"fmt"
 
 	reqestmodel "github.com/vajid-hussain/grpc-microservice-auth-svc/pkg/models/reqestModel"
@@ -27,7 +28,7 @@ func (d *authRepository) CreateUser(userData *reqestmodel.User) (*resposemodel.U
 	if result.Error != nil {
 		return nil, fmt.Errorf("insert user data face some issue: %v", result.Error)
 	}
-	fmt.Println("8*****", createdUser)
+
 	return &createdUser, nil
 }
 
@@ -43,7 +44,7 @@ func (d *authRepository) GetUserDetails(email string) (*resposemodel.UserData, e
 	query := "SELECT * FROM users WHERE email= $1"
 	result := d.DB.Raw(query, email).Scan(&userDetails)
 	if result.RowsAffected == 0 {
-		return nil, result.Error
+		return nil, errors.New("no user exit with same email")
 	}
 	return &userDetails, nil
 }

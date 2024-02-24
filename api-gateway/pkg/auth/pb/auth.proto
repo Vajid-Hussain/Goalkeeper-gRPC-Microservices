@@ -15,8 +15,9 @@ message RegisterRequest{
 }
 
 message RegisterResponse{
-    int64 status = 1;
-    string error =2;
+    string email = 4;
+    string jwt = 3;
+    string userID = 5;
 }
 
 message LoginRequest{
@@ -25,6 +26,5 @@ message LoginRequest{
 }
 
 message LoginResponse{
-    int64 statusCode = 1;
-    string error = 2;
+    RegisterResponse login = 1;
 }

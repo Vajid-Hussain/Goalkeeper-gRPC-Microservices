@@ -2,7 +2,9 @@ package usecase
 
 import (
 	"errors"
+	"fmt"
 
+	"github.com/vajid-hussain/grpc-microservice-auth-svc/pkg/config"
 	reqestmodel "github.com/vajid-hussain/grpc-microservice-auth-svc/pkg/models/reqestModel"
 	resposemodel "github.com/vajid-hussain/grpc-microservice-auth-svc/pkg/models/resposeModel"
 	repositoryIinterfaces "github.com/vajid-hussain/grpc-microservice-auth-svc/pkg/repository/interface"
@@ -12,10 +14,12 @@ import (
 
 type authUsecase struct {
 	authRepository repositoryIinterfaces.IAuthRepository
+	config         *config.Config
 }
 
-func NewAuthUsecase(repository repositoryIinterfaces.IAuthRepository) usecaseinterface.IAuthUsecase {
-	return &authUsecase{authRepository: repository}
+func NewAuthUsecase(repository repositoryIinterfaces.IAuthRepository, c *config.Config) usecaseinterface.IAuthUsecase {
+	return &authUsecase{authRepository: repository,
+		config: c}
 }
 
 func (r *authUsecase) UserCreate(userData reqestmodel.User) (*resposemodel.UserData, error) {
@@ -33,6 +37,8 @@ func (r *authUsecase) UserCreate(userData reqestmodel.User) (*resposemodel.UserD
 	if err != nil {
 		return nil, err
 	}
+
+	result.Jwt = utils.CreateJwt(r.config.JwtSecret, result.ID)
 	return result, nil
 }
 
@@ -41,10 +47,13 @@ func (r *authUsecase) Login(userData reqestmodel.User) (*resposemodel.UserData, 
 	if err != nil {
 		return nil, err
 	}
-
-	result := utils.CompareHast(userData.Password, userData.Password)
+	fmt.Println("&&&", userDetails)
+	result := utils.CompareHast(userData.Password, userDetails.Password)
 	if !result {
 		return nil, errors.New("password is mismatch")
 	}
+
+	userDetails.Jwt = utils.CreateJwt(r.config.JwtSecret, userDetails.ID)
 	return userDetails, nil
 }
+

@@ -18,18 +18,20 @@ func Register(ctx *gin.Context, c pb.AuthServiceClient) {
 		ctx.AbortWithError(http.StatusBadRequest, err)
 	}
 	// fmt.Println("----", body)
-	
+
 	res, err := c.Register(context.Background(), &pb.RegisterRequest{
 		Email:    body.Email,
 		Password: body.Password,
 	})
+	fmt.Println("###########", res, err)
 
 	if err != nil {
-		fmt.Println("error at rquest in handler")
-		ctx.AbortWithError(http.StatusBadRequest, err)
+		// fmt.Println("error at rquest in handler")
+		ctx.JSON(http.StatusBadRequest, err.Error())
+		return
 	}
 
-	ctx.JSON(http.StatusOK, &res)
+	ctx.JSON(http.StatusCreated, &res)
 }
 
 func Login(ctx *gin.Context, c pb.AuthServiceClient) {
@@ -46,9 +48,11 @@ func Login(ctx *gin.Context, c pb.AuthServiceClient) {
 		Email:    loginData.Email,
 		Password: loginData.Password,
 	})
+	// fmt.Println("###########", res)
 	if err != nil {
-		fmt.Println("===error at login :",err)
-		ctx.AbortWithError(http.StatusBadRequest, err)
+		fmt.Println("===error at login :", err)
+		ctx.JSON(http.StatusBadRequest, err.Error())
+		return
 	}
 
 	ctx.JSON(http.StatusOK, res)

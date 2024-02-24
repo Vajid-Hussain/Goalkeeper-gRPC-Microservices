@@ -12,7 +12,7 @@ func InitializeService(config *config.Config) *service.Service {
 	DB := db.DBInit(config)
 
 	authRepository := repository.NewAuthRepository(DB)
-	authUseCase := usecase.NewAuthUsecase(authRepository)
+	authUseCase := usecase.NewAuthUsecase(authRepository,config)
 	service := service.NewAuthServices(authUseCase)
 
 	return service
