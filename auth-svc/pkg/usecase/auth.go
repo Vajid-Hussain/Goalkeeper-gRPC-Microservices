@@ -57,3 +57,6 @@ func (r *authUsecase) Login(userData reqestmodel.User) (*resposemodel.UserData, 
 	return userDetails, nil
 }
 
+func (r *authUsecase) VerifyJwtToken(token string) (string, error) {
+	return utils.VerifyJwt(token, r.config.JwtSecret)
+}

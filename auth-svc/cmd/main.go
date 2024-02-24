@@ -29,5 +29,4 @@ func main() {
 	if err := grpcService.Serve(lis); err != nil {
 		log.Fatalln("failed to serve", err)
 	}
-
 }

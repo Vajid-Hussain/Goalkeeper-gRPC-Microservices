@@ -9,10 +9,11 @@ import (
 type Config struct {
 	Port      string `mapstructure:"PORT"`
 	Auth_port string `mapstructure:"AUTH_SVC_PORT"`
+	Vault_port string `mapstructure:"VAULT_SVC_PORT"`
 }
 
 func LoadConfig() (c *Config, err error) {
-	viper.AddConfigPath("./pkg/auth/config/envs/")
+	viper.AddConfigPath("./pkg/config/envs/")
 	viper.SetConfigName("dev")
 	viper.SetConfigType("env")
 

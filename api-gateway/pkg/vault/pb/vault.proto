@@ -1,0 +1,20 @@
+syntax = "proto3";
+
+package vault;
+
+option go_package= "./pkg/vault/pb/";
+
+service vaultService{
+    rpc createCollection (createCollectionRequest) returns (createCollectionRespose){}
+}
+
+message createCollectionRequest{
+    string collectionName = 1;
+    string userID = 2;
+}
+
+message createCollectionRespose{
+    string collecionName = 1;
+    string userID = 2;
+    string collectionID = 3;
+}

@@ -5,7 +5,8 @@ import (
 
 	"github.com/gin-gonic/gin"
 	"github.com/vajid-hussain/grpc-microservice-api-gateway/pkg/auth"
-	"github.com/vajid-hussain/grpc-microservice-api-gateway/pkg/auth/config"
+	"github.com/vajid-hussain/grpc-microservice-api-gateway/pkg/config"
+	"github.com/vajid-hussain/grpc-microservice-api-gateway/pkg/vault"
 )
 
 func main() {
@@ -16,7 +17,8 @@ func main() {
 
 	engin := gin.Default()
 
-	auth.RegisterRouter(engin, config)
+	authSVC:=auth.RegisterRouter(engin, config)
+	vault.RegisterVault(engin, config, authSVC)
 
 	engin.Run(config.Port)
 }

@@ -45,3 +45,12 @@ func (s *Service) Login(ctx context.Context, req *pb.LoginRequest) (*pb.LoginRes
 
 	return &pb.LoginResponse{Login: &pb.RegisterResponse{Jwt: result.Jwt, Email: result.Email, UserID: result.ID}}, nil
 }
+
+func (s *Service) JwtValidate(ctx context.Context, req *pb.JwtRequest) (*pb.JwtResponse, error) {
+	userID, err := s.authUseCase.VerifyJwtToken(req.Jwt)
+	fmt.Println("*********", req.Jwt, userID, err)
+	if err != nil {
+		return &pb.JwtResponse{}, err
+	}
+	return &pb.JwtResponse{UserID: userID}, nil
+}

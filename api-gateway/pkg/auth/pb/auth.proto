@@ -7,6 +7,7 @@ option go_package = "./pkg/auth/pb/";
 service AuthService {
     rpc Register(RegisterRequest) returns (RegisterResponse){}
     rpc Login(LoginRequest) returns (LoginResponse) {}
+    rpc jwtValidate (JwtRequest) returns (jwtResponse){}
 }
 
 message RegisterRequest{
@@ -27,4 +28,12 @@ message LoginRequest{
 
 message LoginResponse{
     RegisterResponse login = 1;
+}
+
+message JwtRequest{
+    string jwt=1;
+}
+
+message jwtResponse{
+    string userID = 1;
 }

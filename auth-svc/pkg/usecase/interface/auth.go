@@ -7,5 +7,6 @@ import (
 
 type IAuthUsecase interface {
 	UserCreate(reqestmodel.User) (*resposemodel.UserData, error)
-	Login( reqestmodel.User) (*resposemodel.UserData, error)
+	Login(reqestmodel.User) (*resposemodel.UserData, error)
+	VerifyJwtToken(string) (string, error)
 }
