@@ -20,6 +20,7 @@ const _ = grpc.SupportPackageIsVersion7
 
 const (
 	VaultService_CreateCollection_FullMethodName = "/vault.vaultService/createCollection"
+	VaultService_InserData_FullMethodName        = "/vault.vaultService/InserData"
 )
 
 // VaultServiceClient is the client API for VaultService service.
@@ -27,6 +28,7 @@ const (
 // For semantics around ctx use and closing/ending streaming RPCs, please refer to https://pkg.go.dev/google.golang.org/grpc/?tab=doc#ClientConn.NewStream.
 type VaultServiceClient interface {
 	CreateCollection(ctx context.Context, in *CreateCollectionRequest, opts ...grpc.CallOption) (*CreateCollectionRespose, error)
+	InserData(ctx context.Context, in *DataRequest, opts ...grpc.CallOption) (*DataResponse, error)
 }
 
 type vaultServiceClient struct {
@@ -46,11 +48,21 @@ func (c *vaultServiceClient) CreateCollection(ctx context.Context, in *CreateCol
 	return out, nil
 }
 
+func (c *vaultServiceClient) InserData(ctx context.Context, in *DataRequest, opts ...grpc.CallOption) (*DataResponse, error) {
+	out := new(DataResponse)
+	err := c.cc.Invoke(ctx, VaultService_InserData_FullMethodName, in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 // VaultServiceServer is the server API for VaultService service.
 // All implementations must embed UnimplementedVaultServiceServer
 // for forward compatibility
 type VaultServiceServer interface {
 	CreateCollection(context.Context, *CreateCollectionRequest) (*CreateCollectionRespose, error)
+	InserData(context.Context, *DataRequest) (*DataResponse, error)
 	mustEmbedUnimplementedVaultServiceServer()
 }
 
@@ -60,6 +72,9 @@ type UnimplementedVaultServiceServer struct {
 
 func (UnimplementedVaultServiceServer) CreateCollection(context.Context, *CreateCollectionRequest) (*CreateCollectionRespose, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method CreateCollection not implemented")
+}
+func (UnimplementedVaultServiceServer) InserData(context.Context, *DataRequest) (*DataResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method InserData not implemented")
 }
 func (UnimplementedVaultServiceServer) mustEmbedUnimplementedVaultServiceServer() {}
 
@@ -92,6 +107,24 @@ func _VaultService_CreateCollection_Handler(srv interface{}, ctx context.Context
 	return interceptor(ctx, in, info, handler)
 }
 
+func _VaultService_InserData_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(DataRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(VaultServiceServer).InserData(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: VaultService_InserData_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(VaultServiceServer).InserData(ctx, req.(*DataRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 // VaultService_ServiceDesc is the grpc.ServiceDesc for VaultService service.
 // It's only intended for direct use with grpc.RegisterService,
 // and not to be introspected or modified (even as a copy)
@@ -102,6 +135,10 @@ var VaultService_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "createCollection",
 			Handler:    _VaultService_CreateCollection_Handler,
+		},
+		{
+			MethodName: "InserData",
+			Handler:    _VaultService_InserData_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},

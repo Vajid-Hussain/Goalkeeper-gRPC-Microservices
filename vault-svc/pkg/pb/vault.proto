@@ -6,6 +6,8 @@ option go_package = "./pkg/pb/";
 
 service vaultService{
     rpc createCollection(createCollectionRequest) returns (createCollectionResponse){}
+    rpc InserData (dataRequest) returns (dataResponse){}
+
 }
 
 message createCollectionRequest{
@@ -17,4 +19,16 @@ message createCollectionResponse{
     string collecionName = 1;
     string userID = 2;
     string collectionID = 3;
+}
+
+message dataRequest{
+    string userID = 1;
+    string categoryID = 2;
+    string data =3;
+    string reminder = 4;
+}
+
+message dataResponse{
+    string dataID =1;
+    dataRequest data =2;
 }

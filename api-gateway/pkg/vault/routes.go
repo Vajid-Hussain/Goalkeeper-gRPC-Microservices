@@ -18,9 +18,14 @@ func RegisterVault(ctx *gin.Engine, c *config.Config, authSvc *auth.ServiceClien
 	{
 		routes.Use(authMiddlewire.VerifyJwt)
 		routes.POST("/createcollection", svc.CreateCollection)
+		routes.POST("/inserdata", svc.InserData)
 	}
 }
 
 func (s *ServiceClient) CreateCollection(ctx *gin.Context) {
 	handler.CreateCollection(ctx, s.Client)
+}
+
+func (s *ServiceClient) InserData(ctx *gin.Context) {
+	handler.InserData(ctx, s.Client)
 }
