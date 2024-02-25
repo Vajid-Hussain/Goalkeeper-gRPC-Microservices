@@ -2,12 +2,16 @@ syntax = "proto3";
 
 package vault;
 
+import "google/protobuf/timestamp.proto";
+
+
 option go_package = "./pkg/pb/";
 
 service vaultService{
     rpc createCollection(createCollectionRequest) returns (createCollectionResponse){}
     rpc InserData (dataRequest) returns (dataResponse){}
-
+    rpc GetCategories (categoryRequest) returns (categoryResponse) {}
+    rpc GetDatas (getDataRequest) returns (getDataResponse) {}
 }
 
 message createCollectionRequest{
@@ -31,4 +35,31 @@ message dataRequest{
 message dataResponse{
     string dataID =1;
     dataRequest data =2;
+}
+
+message categoryRequest{
+    string userID = 1;
+}
+
+message categoryResponse{
+    repeated categoryList category = 1;
+}
+
+message categoryList{
+    string ID             = 1;
+    string CategoryName     = 2;
+}
+
+message getDataRequest{
+    string userID = 1;
+    string categoryID = 2;
+}
+
+message getDataResponse{
+    repeated datasList datas = 1;
+}
+
+message datasList{
+    string data =1;
+    google.protobuf.Timestamp reminder = 2;    
 }

@@ -3,6 +3,8 @@ module github.com/vajid-hussain/grpc-microservice-vault-svc
 go 1.21.3
 
 require (
+	github.com/golang/protobuf v1.5.3
+	github.com/robfig/cron/v3 v3.0.1
 	github.com/spf13/viper v1.18.2
 	go.mongodb.org/mongo-driver v1.14.0
 	google.golang.org/grpc v1.62.0
@@ -11,7 +13,6 @@ require (
 
 require (
 	github.com/fsnotify/fsnotify v1.7.0 // indirect
-	github.com/golang/protobuf v1.5.3 // indirect
 	github.com/golang/snappy v0.0.1 // indirect
 	github.com/hashicorp/hcl v1.0.0 // indirect
 	github.com/klauspost/compress v1.17.0 // indirect

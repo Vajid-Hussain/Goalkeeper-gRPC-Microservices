@@ -2,6 +2,7 @@ package usecase
 
 import (
 	requestmodel "github.com/vajid-hussain/grpc-microservice-vault-svc/pkg/models/requestModel"
+	resposemodel "github.com/vajid-hussain/grpc-microservice-vault-svc/pkg/models/resposeModel"
 	repositoryInterface "github.com/vajid-hussain/grpc-microservice-vault-svc/pkg/repository/interface"
 	usecaseInterface "github.com/vajid-hussain/grpc-microservice-vault-svc/pkg/usecase/interface"
 )
@@ -24,4 +25,12 @@ func (d *vaultUseCase) CreateCategory(data requestmodel.Colleciton) (string, err
 
 func (d *vaultUseCase) InserDAta(data requestmodel.Data) (string, error) {
 	return d.vaultRepository.InsertData(data)
+}
+
+func (d *vaultUseCase) GetCategories(userID string) ([]*resposemodel.Collections, error) {
+	return d.vaultRepository.GetCategories(userID)
+}
+
+func (d *vaultUseCase) GetDatas(details requestmodel.GetDataRequest) (*[]resposemodel.GetDataResponse, error) {
+	return d.vaultRepository.GetDatas(details)
 }
