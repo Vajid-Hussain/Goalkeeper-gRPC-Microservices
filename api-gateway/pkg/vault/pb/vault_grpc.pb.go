@@ -21,6 +21,8 @@ const _ = grpc.SupportPackageIsVersion7
 const (
 	VaultService_CreateCollection_FullMethodName = "/vault.vaultService/createCollection"
 	VaultService_InserData_FullMethodName        = "/vault.vaultService/InserData"
+	VaultService_GetCategories_FullMethodName    = "/vault.vaultService/GetCategories"
+	VaultService_GetDatas_FullMethodName         = "/vault.vaultService/GetDatas"
 )
 
 // VaultServiceClient is the client API for VaultService service.
@@ -29,6 +31,8 @@ const (
 type VaultServiceClient interface {
 	CreateCollection(ctx context.Context, in *CreateCollectionRequest, opts ...grpc.CallOption) (*CreateCollectionRespose, error)
 	InserData(ctx context.Context, in *DataRequest, opts ...grpc.CallOption) (*DataResponse, error)
+	GetCategories(ctx context.Context, in *CategoryRequest, opts ...grpc.CallOption) (*CategoryResponse, error)
+	GetDatas(ctx context.Context, in *GetDataRequest, opts ...grpc.CallOption) (*GetDataResponse, error)
 }
 
 type vaultServiceClient struct {
@@ -57,12 +61,32 @@ func (c *vaultServiceClient) InserData(ctx context.Context, in *DataRequest, opt
 	return out, nil
 }
 
+func (c *vaultServiceClient) GetCategories(ctx context.Context, in *CategoryRequest, opts ...grpc.CallOption) (*CategoryResponse, error) {
+	out := new(CategoryResponse)
+	err := c.cc.Invoke(ctx, VaultService_GetCategories_FullMethodName, in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *vaultServiceClient) GetDatas(ctx context.Context, in *GetDataRequest, opts ...grpc.CallOption) (*GetDataResponse, error) {
+	out := new(GetDataResponse)
+	err := c.cc.Invoke(ctx, VaultService_GetDatas_FullMethodName, in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 // VaultServiceServer is the server API for VaultService service.
 // All implementations must embed UnimplementedVaultServiceServer
 // for forward compatibility
 type VaultServiceServer interface {
 	CreateCollection(context.Context, *CreateCollectionRequest) (*CreateCollectionRespose, error)
 	InserData(context.Context, *DataRequest) (*DataResponse, error)
+	GetCategories(context.Context, *CategoryRequest) (*CategoryResponse, error)
+	GetDatas(context.Context, *GetDataRequest) (*GetDataResponse, error)
 	mustEmbedUnimplementedVaultServiceServer()
 }
 
@@ -75,6 +99,12 @@ func (UnimplementedVaultServiceServer) CreateCollection(context.Context, *Create
 }
 func (UnimplementedVaultServiceServer) InserData(context.Context, *DataRequest) (*DataResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method InserData not implemented")
+}
+func (UnimplementedVaultServiceServer) GetCategories(context.Context, *CategoryRequest) (*CategoryResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method GetCategories not implemented")
+}
+func (UnimplementedVaultServiceServer) GetDatas(context.Context, *GetDataRequest) (*GetDataResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method GetDatas not implemented")
 }
 func (UnimplementedVaultServiceServer) mustEmbedUnimplementedVaultServiceServer() {}
 
@@ -125,6 +155,42 @@ func _VaultService_InserData_Handler(srv interface{}, ctx context.Context, dec f
 	return interceptor(ctx, in, info, handler)
 }
 
+func _VaultService_GetCategories_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(CategoryRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(VaultServiceServer).GetCategories(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: VaultService_GetCategories_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(VaultServiceServer).GetCategories(ctx, req.(*CategoryRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _VaultService_GetDatas_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(GetDataRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(VaultServiceServer).GetDatas(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: VaultService_GetDatas_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(VaultServiceServer).GetDatas(ctx, req.(*GetDataRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 // VaultService_ServiceDesc is the grpc.ServiceDesc for VaultService service.
 // It's only intended for direct use with grpc.RegisterService,
 // and not to be introspected or modified (even as a copy)
@@ -139,6 +205,14 @@ var VaultService_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "InserData",
 			Handler:    _VaultService_InserData_Handler,
+		},
+		{
+			MethodName: "GetCategories",
+			Handler:    _VaultService_GetCategories_Handler,
+		},
+		{
+			MethodName: "GetDatas",
+			Handler:    _VaultService_GetDatas_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},
