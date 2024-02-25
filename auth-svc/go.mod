@@ -3,7 +3,9 @@ module github.com/vajid-hussain/grpc-microservice-auth-svc
 go 1.21.3
 
 require (
+	github.com/dgrijalva/jwt-go v3.2.0+incompatible
 	github.com/spf13/viper v1.18.2
+	github.com/wneessen/go-mail v0.4.1
 	golang.org/x/crypto v0.19.0
 	google.golang.org/grpc v1.62.0
 	google.golang.org/protobuf v1.32.0
@@ -12,7 +14,6 @@ require (
 )
 
 require (
-	github.com/dgrijalva/jwt-go v3.2.0+incompatible // indirect
 	github.com/fsnotify/fsnotify v1.7.0 // indirect
 	github.com/golang/protobuf v1.5.3 // indirect
 	github.com/hashicorp/hcl v1.0.0 // indirect

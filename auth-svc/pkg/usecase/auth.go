@@ -23,6 +23,8 @@ func NewAuthUsecase(repository repositoryIinterfaces.IAuthRepository, c *config.
 }
 
 func (r *authUsecase) UserCreate(userData reqestmodel.User) (*resposemodel.UserData, error) {
+	var emailCredential = reqestmodel.Email{From: r.config.FromEmail, To: userData.Email, AppPasskey: r.config.AppPasskey}
+
 	if count := r.authRepository.UserExist(userData.Email); count > 0 {
 		return nil, errors.New("user alrady exist try with another mail")
 	}
@@ -39,6 +41,9 @@ func (r *authUsecase) UserCreate(userData reqestmodel.User) (*resposemodel.UserD
 	}
 
 	result.Jwt = utils.CreateJwt(r.config.JwtSecret, result.ID)
+
+	utils.GreetingMain(emailCredential)
+
 	return result, nil
 }
 

@@ -32,6 +32,7 @@ func (c *AuthMiddleWire) VerifyJwt(ctx *gin.Context) {
 	if err != nil {
 		fmt.Println("***", err)
 		ctx.JSON(http.StatusUnauthorized, err.Error())
+		ctx.Abort()
 		return
 	}
 	ctx.Set("userID", res.UserID)
