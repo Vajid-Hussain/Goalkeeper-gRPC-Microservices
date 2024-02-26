@@ -22,7 +22,10 @@ func (u *MailService) TodayTask(ctx context.Context, req *pb.TodayTaskRequest) (
 
 	result, err := u.useCase.TodayTask(req.UserID)
 	if err != nil {
-		return nil, err
+		return &pb.TodayTaskResponse{}, err
+	}
+	if len(result) == 0 {
+		return &pb.TodayTaskResponse{}, nil
 	}
 
 	var finalResult = new(pb.TodayTaskResponse)
@@ -30,6 +33,6 @@ func (u *MailService) TodayTask(ctx context.Context, req *pb.TodayTaskRequest) (
 		fmt.Println("---", val)
 		finalResult.Data = append(finalResult.Data, val.Data)
 	}
-	fmt.Println("---", finalResult, result)
+	// fmt.Println("---", finalResult, result)
 	return finalResult, nil
 }

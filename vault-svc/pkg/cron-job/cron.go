@@ -18,7 +18,7 @@ func CronJob(vaultRepository repositoryInterface.IVaultRepository) {
 	log.SetOutput(logFile)
 
 	c := cron.New()
-	_, err = c.AddFunc("* * */1 * *", vaultRepository.DeleteDataCronJob)
+	_, err = c.AddFunc("0 0 * * *", vaultRepository.DeleteDataCronJob)
 	if err != nil {
 		fmt.Println("error at attaching fucntion to cronejob")
 	}
