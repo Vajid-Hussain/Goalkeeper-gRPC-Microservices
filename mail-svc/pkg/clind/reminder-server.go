@@ -1,37 +1,3 @@
-// package clind
-
-// import (
-// 	"context"
-// 	"fmt"
-
-// 	"github.com/vajid-hussain/grpc-microservice-mail-svc/pkg/pb"
-// 	"google.golang.org/grpc"
-// 	"google.golang.org/grpc/credentials/insecure"
-// )
-
-// type ReminderServiceClients struct {
-// 	Client pb.ReminderServiceClient
-// }
-
-// func InitReminderServiceClient(port string) ReminderServiceClients {
-// 	cc, err := grpc.Dial(port, grpc.WithTransportCredentials(insecure.NewCredentials()))
-// 	if err != nil {
-// 		fmt.Println("could not connect")
-// 	}
-
-// 	c := ReminderServiceClients{
-// 		Client: pb.NewReminderServiceClient(cc),
-// 	}
-// 	return c
-// }
-
-// func (c *ReminderServiceClients) TodayTask() {
-// 	result, err := c.Client.TodayTask(context.Background(), &pb.TodayTaskRequst{
-// 		UserID: "15",
-// 	})
-// 	fmt.Println("---", result, err)
-// }
-
 package clind
 
 import (
@@ -44,7 +10,7 @@ import (
 )
 
 type ReminderServiceClindStruct struct {
-	Clind pb.ReminderServiceClient
+	Clind pb.RemainderServiceClient
 }
 
 func InitReminderServiceClient(url string) ReminderServiceClindStruct {
@@ -54,16 +20,18 @@ func InitReminderServiceClient(url string) ReminderServiceClindStruct {
 	}
 
 	c := ReminderServiceClindStruct{
-		Clind: pb.NewReminderServiceClient(cc),
+		Clind: pb.NewRemainderServiceClient(cc),
 	}
 	return c
 }
 
 func (r *ReminderServiceClindStruct) DailyTask() {
 	fmt.Println("----dailyTask")
-	result, err := r.Clind.TodayTask(context.Background(), &pb.TodayTaskRequst{
+	result, err := r.Clind.TodayTask(context.Background(), &pb.TodayTaskRequest{
 		UserID: "15",
 	})
-
-	fmt.Println("=====", result, err)
+	if err != nil {
+		return
+	}
+	fmt.Println("===", result.Data[0],"9999", result)
 }

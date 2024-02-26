@@ -1,0 +1,17 @@
+syntax = "proto3";
+
+package mail;
+
+option go_package="mail";
+
+service MailService{
+    rpc SendMail (SendMailRequest) returns (SendMailResponse){}
+}
+
+message SendMailRequest{
+    string userID = 1;
+}
+
+message SendMailResponse {
+    string mailCount = 2;
+}

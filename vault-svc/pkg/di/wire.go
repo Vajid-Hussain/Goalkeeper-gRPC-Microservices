@@ -9,9 +9,13 @@ import (
 	"github.com/vajid-hussain/grpc-microservice-vault-svc/pkg/usecase"
 )
 
-func InitializeService(config *config.Config) *service.Service {
+func InitializeService(config *config.Config) (*service.Service, *service.MailService) {
 
 	connections := db.DBConnection(config)
+
+	mailRepository := repository.NewMailRepository(connections)
+	mailUseCase := usecase.NewMailUseCase(mailRepository)
+	mailService := service.NewMailService(mailUseCase)
 
 	vaultRepository := repository.NewVaultRepository(connections)
 	vaultUsecase := usecase.NewVaultUseCase(vaultRepository)
@@ -19,5 +23,5 @@ func InitializeService(config *config.Config) *service.Service {
 
 	cronjob.CronJob(vaultRepository)
 
-	return service
+	return service, mailService
 }

@@ -2,16 +2,16 @@ syntax = "proto3";
 
 package remainder;
 
-option go_package = "./pkg/pb";
+option go_package= "./pkg/pb/";
 
 service remainderService {
     rpc TodayTask (todayTaskRequest) returns (todayTaskResponse) {}
 }
 
-message todayTaskRequest {
-    string userID = 1;
+message todayTaskRequest{
+    string userID =1;
 }
 
-message todayTaskResponse {
+message todayTaskResponse{
     repeated string data = 1;
 }

@@ -16,7 +16,7 @@ func main() {
 		log.Fatalln("error on viper:", err)
 	}
 
-	service := di.InitializeService(config)
+	service, mailService := di.InitializeService(config)
 
 	lis, err := net.Listen("tcp", config.Port)
 	if err != nil {
@@ -25,8 +25,10 @@ func main() {
 
 	grpcService := grpc.NewServer()
 	pb.RegisterVaultServiceServer(grpcService, service)
+	pb.RegisterRemainderServiceServer(grpcService, mailService)
 
 	if err := grpcService.Serve(lis); err != nil {
 		log.Fatalln("failed to serve", err)
 	}
+
 }

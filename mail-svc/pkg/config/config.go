@@ -8,7 +8,8 @@ import (
 )
 
 type Config struct {
-	VaultSvcPort string `mapstructure:"VAULT-SVC-PORT"`
+	VaultSvcPort string `mapstructure:"VAULT_SVC_PORT"`
+	MailSvcPort string `mapstructure:"PORT"`
 }
 
 func LoadConfig() (*Config, error) {

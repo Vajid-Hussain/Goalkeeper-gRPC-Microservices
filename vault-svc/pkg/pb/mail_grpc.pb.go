@@ -2,7 +2,7 @@
 // versions:
 // - protoc-gen-go-grpc v1.3.0
 // - protoc             v3.12.4
-// source: pkg/pb/reminder.proto
+// source: pkg/pb/mail.proto
 
 package pb
 
@@ -105,5 +105,5 @@ var RemainderService_ServiceDesc = grpc.ServiceDesc{
 		},
 	},
 	Streams:  []grpc.StreamDesc{},
-	Metadata: "pkg/pb/reminder.proto",
+	Metadata: "pkg/pb/mail.proto",
 }

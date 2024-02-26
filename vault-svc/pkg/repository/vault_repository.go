@@ -87,6 +87,6 @@ func (d *vaultRepository) DeleteDataCronJob() {
 	currentDate := time.Now().Truncate(24 * time.Hour)
 	
 	d.connectionString.Data.DeleteMany(context.Background(), bson.M{"expire": bson.M{"$lt": currentDate}})
-	
+
 	log.Println("--cron workded delete happened")
-}
+}	
