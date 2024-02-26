@@ -1,0 +1,18 @@
+syntax = "proto3";
+
+package reminder;
+
+option go_package = "./pkg/pb";
+
+service reminderService {
+    rpc TodayTask (todayTaskRequst) returns (todayTaskResponse) {}
+}
+
+message todayTaskRequst {
+    string userID = 1;
+}
+
+message todayTaskResponse {
+    string category = 1;
+    string data = 2;
+}
