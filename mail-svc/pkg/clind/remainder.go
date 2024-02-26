@@ -13,7 +13,7 @@ type ReminderServiceClindStruct struct {
 	Clind pb.RemainderServiceClient
 }
 
-func InitReminderServiceClient(url string) ReminderServiceClindStruct {
+func InitReminderServiceClient(url string) *ReminderServiceClindStruct {
 	cc, err := grpc.Dial(url, grpc.WithTransportCredentials(insecure.NewCredentials()))
 	if err != nil {
 		fmt.Println("connection dial or simply connection is not established")
@@ -22,7 +22,7 @@ func InitReminderServiceClient(url string) ReminderServiceClindStruct {
 	c := ReminderServiceClindStruct{
 		Clind: pb.NewRemainderServiceClient(cc),
 	}
-	return c
+	return &c
 }
 
 func (r *ReminderServiceClindStruct) DailyTask() {

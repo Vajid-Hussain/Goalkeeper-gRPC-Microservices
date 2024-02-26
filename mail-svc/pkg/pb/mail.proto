@@ -2,7 +2,7 @@ syntax = "proto3";
 
 package mail;
 
-option go_package="mail";
+option go_package="./pkg/pb/";
 
 service MailService{
     rpc SendMail (SendMailRequest) returns (SendMailResponse){}
@@ -10,6 +10,7 @@ service MailService{
 
 message SendMailRequest{
     string userID = 1;
+    string email =2 ;
 }
 
 message SendMailResponse {

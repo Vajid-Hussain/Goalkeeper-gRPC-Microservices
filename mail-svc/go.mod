@@ -4,6 +4,7 @@ go 1.21.3
 
 require (
 	github.com/spf13/viper v1.18.2
+	github.com/wneessen/go-mail v0.4.1
 	google.golang.org/grpc v1.59.0
 	google.golang.org/protobuf v1.31.0
 )
