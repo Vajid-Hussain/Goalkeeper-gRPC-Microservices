@@ -55,29 +55,6 @@ func VerifyJwt(token, secret string) (string, error) {
 	return id, nil
 }
 
-// func SendMail(credential reqestmodel.Email) {
-// 	m := mail.NewMsg()
-// 	if err := m.From(credential.From); err != nil {
-// 		log.Fatalf("failed to set From address: %s", err)
-// 	}
-
-// 	if err := m.To(credential.To); err != nil {
-// 		log.Fatalf("failed to set To address: %s", err)
-// 	}
-// 	m.Subject("This is my first mail with go-mail!")
-// 	m.SetBodyString(mail.TypeTextPlain, "Do you like this mail? I certainly do!")
-
-// 	c, err := mail.NewClient("smtp.gmail.com", mail.WithPort(587), mail.WithSMTPAuth(mail.SMTPAuthPlain),
-// 		mail.WithUsername(credential.From), mail.WithPassword(credential.AppPasskey))
-// 	if err != nil {
-// 		log.Fatalf("failed to create mail client: %s", err)
-// 	}
-
-// 	if err := c.DialAndSend(m); err != nil {
-// 		log.Fatalf("failed to send mail: %s", err)
-// 	}
-// }
-
 func GreetingMain(credential reqestmodel.Email) {
     m := mail.NewMsg()
     if err := m.From(credential.From); err != nil {

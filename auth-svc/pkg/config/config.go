@@ -8,6 +8,7 @@ type Config struct {
 	JwtSecret  string `mapstructure:"JWT_SECRET_KEY"`
 	AppPasskey string `mapstructure:"SECRETKEY"`
 	FromEmail  string `mapstructure:"FROM"`
+	MailSvcPort string `mapstructure:"MAILSVCPORT"`
 }
 
 func LoadConfig() (c Config, err error) {

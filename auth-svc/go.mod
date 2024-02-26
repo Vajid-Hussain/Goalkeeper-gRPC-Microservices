@@ -4,6 +4,7 @@ go 1.21.3
 
 require (
 	github.com/dgrijalva/jwt-go v3.2.0+incompatible
+	github.com/robfig/cron/v3 v3.0.0
 	github.com/spf13/viper v1.18.2
 	github.com/wneessen/go-mail v0.4.1
 	golang.org/x/crypto v0.19.0
