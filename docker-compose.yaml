@@ -1,0 +1,81 @@
+version: '3.9'
+
+services:
+  postgres:
+    image: postgres:latest
+    container_name: goalkeeper-postgres
+    ports:
+      - 5431:5432
+    networks: 
+      - goalkeeper
+    volumes: 
+      - my-data:/var/lib/postgresql/data
+    hostname: postgresdb
+    environment:
+      - POSTGRES_PASSWORD=postgres 
+
+  mongodb:
+    image: mongo
+    container_name: mongodb
+    hostname: mongodb
+    networks:   
+      - goalkeeper
+    volumes: 
+      - my-data:/etc/mongo
+    ports:
+      - 27018:27017
+
+  api-gateway:
+    image: vajidhussain/apigateway
+    build: ./api-gateway/
+    depends_on:
+      - postgres
+      - mongodb
+    ports: 
+      - 3000:3000
+    networks: 
+      - goalkeeper
+    container_name: api-gateway
+
+  auth-svc:
+    image: vajidhussain/auth-svc
+    build: ./auth-svc/
+    depends_on:
+      - postgres
+      - mongodb
+    ports:
+      - 3001:3001
+    networks: 
+      - goalkeeper
+    container_name: auth-svc
+
+  vault-svc:
+    image: vajidhussain/vault-svc
+    build: ./vault-svc/
+    depends_on:
+      - postgres
+      - mongodb
+    ports: 
+      - 3002:3002
+    networks: 
+      - goalkeeper
+    container_name: vault-svc
+
+  mail-svc:
+    image: vajidhussain/mail-svc
+    build: ./mail-svc
+    depends_on:
+      - postgres
+      - mongodb
+    ports:
+      - 3003:3003
+    networks: 
+      - goalkeeper
+    container_name: mail-svc
+
+networks:
+  goalkeeper:
+    driver: bridge
+
+volumes:
+  my-data:

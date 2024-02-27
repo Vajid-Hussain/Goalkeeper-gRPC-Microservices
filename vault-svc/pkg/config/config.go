@@ -3,7 +3,8 @@ package config
 import "github.com/spf13/viper"
 
 type Config struct {
-	Port string `mapstructure:"PORT"`
+	Port     string `mapstructure:"PORT"`
+	MongoUrl string `mapstructure:"MONGOURL"`
 }
 
 func LoadConfig() (c *Config, err error) {

@@ -18,7 +18,7 @@ func DBConnection(cofig *config.Config) *CollectionConnections {
 	var connections CollectionConnections
 	var ctx = context.TODO()
 
-	clindOption := options.Client().ApplyURI("mongodb://localhost:27017/")
+	clindOption := options.Client().ApplyURI(cofig.MongoUrl)
 	client, err := mongo.Connect(ctx, clindOption)
 	if err != nil {
 		fmt.Println("connection refuse when make a connection to mongod")
@@ -33,8 +33,6 @@ func DBConnection(cofig *config.Config) *CollectionConnections {
 
 	categoryCollection := client.Database("goalkeeper").Collection("vault")
 	dataCollection := client.Database("goalkeeper").Collection("datas")
-
-	// collection.InsertOne(context.Background(), bson.M{"name":"vajid hussain", "age": 79})
 
 	connections.Category = categoryCollection
 	connections.Data = dataCollection

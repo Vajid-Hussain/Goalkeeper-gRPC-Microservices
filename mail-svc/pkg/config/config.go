@@ -18,7 +18,7 @@ func LoadConfig() (*Config, error) {
 
 	config := Config{}
 
-	viper.AddConfigPath("./pkg/config/envs/")
+	viper.AddConfigPath("./")
 	viper.SetConfigName("dev")
 	viper.SetConfigType("env")
 	viper.AutomaticEnv()
