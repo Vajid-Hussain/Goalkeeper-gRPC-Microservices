@@ -42,4 +42,3 @@ func (s *MailService) SendMail(ctx context.Context, req *pb.SendMailRequest) (*p
 
 	return &pb.SendMailResponse{}, nil
 }
-	
