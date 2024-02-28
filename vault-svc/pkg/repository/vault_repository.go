@@ -49,13 +49,14 @@ func (d *vaultRepository) InsertData(data requestmodel.Data) (string, error) {
 }
 
 func (d *vaultRepository) GetCategories(userID string) ([]*resposemodel.Collections, error) {
-	var category *resposemodel.Collections
 	var categorySet []*resposemodel.Collections
 	courser, _ := d.connectionString.Category.Find(context.Background(), bson.M{"userID": userID})
 
 	defer courser.Close(context.Background())
 
 	for courser.Next(context.Background()) {
+		var category *resposemodel.Collections
+
 		if err := courser.Decode(&category); err != nil {
 			return nil, errors.New("error on unmarshel of category data in valt service repository")
 		}
@@ -85,8 +86,8 @@ func (d *vaultRepository) GetDatas(details requestmodel.GetDataRequest) (*[]resp
 
 func (d *vaultRepository) DeleteDataCronJob() {
 	currentDate := time.Now().Truncate(24 * time.Hour)
-	
+
 	d.connectionString.Data.DeleteMany(context.Background(), bson.M{"expire": bson.M{"$lt": currentDate}})
 
 	log.Println("--cron workded delete happened")
-}	
+}

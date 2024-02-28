@@ -80,7 +80,7 @@ func (s *Service) GetDatas(ctx context.Context, req *pb.GetDataRequest) (*pb.Get
 	if err != nil {
 		return &pb.GetDataResponse{}, err
 	}
-	
+
 	var dataList []*pb.DatasList
 	for _, val := range *result {
 		data := pb.DatasList{
@@ -92,3 +92,4 @@ func (s *Service) GetDatas(ctx context.Context, req *pb.GetDataRequest) (*pb.Get
 
 	return &pb.GetDataResponse{Datas: dataList}, nil
 }
+
