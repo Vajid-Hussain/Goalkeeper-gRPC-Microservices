@@ -1,0 +1,34 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: auth-svc-deployment
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      svc: auth-svc
+  template:
+    metadata:
+      labels:
+        svc: auth-svc
+    spec:
+      containers:
+        - image: vajidhussain/auth-svc
+          name: auth-svc-container
+          ports:
+            - containerPort: 3001
+
+---
+
+apiVersion: v1
+kind: Service
+metadata: 
+  name: auth-svc
+spec:
+  selector:
+    svc: auth-svc
+  type: ClusterIP
+  ports:
+    - port: 3001
+      targetPort: 3001
+

@@ -1,0 +1,35 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: mail-svc-deployment
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      svc: mail-svc
+  template:
+    metadata:
+      labels:
+        svc: mail-svc
+    spec:
+      containers:
+        - image: vajidhussain/mail-svc
+          name: mail-svc-container
+          ports:
+            - containerPort: 3003
+
+---
+
+apiVersion: v1
+kind: Service
+metadata: 
+  name: mail-svc
+spec:
+  selector:
+    svc: mail-svc
+  type: ClusterIP
+  ports:
+    - port: 3003
+      targetPort: 3003
+
+      

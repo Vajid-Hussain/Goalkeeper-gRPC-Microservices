@@ -1,0 +1,35 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: vault-svc-deployment
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      svc: vault-svc
+  template:
+    metadata:
+      labels:
+        svc: vault-svc
+    spec:
+      containers:
+        - image: vajidhussain/vault-svc
+          name: vault-svc-container
+          ports:
+            - containerPort: 3002
+
+---
+
+apiVersion: v1
+kind: Service
+metadata: 
+  name: vault-svc
+spec:
+  selector:
+    svc: vault-svc
+  type: ClusterIP
+  ports:
+    - port: 3002
+      targetPort: 3002
+
+      
