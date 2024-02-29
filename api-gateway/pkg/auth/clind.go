@@ -14,9 +14,14 @@ type ServiceClient struct {
 }
 
 func InitServiceClient(c *config.Config) pb.AuthServiceClient {
-	// fmt.Println("+++++++++++", c)
-	cc, err := grpc.Dial(c.Auth_port, grpc.WithTransportCredentials(insecure.NewCredentials()))
+	// kuberesolver.RegisterInCluster()
+	// client, _ := kuberesolver.NewInClusterK8sClient()
+	// resolver.Register(kuberesolver.NewBuilder(client))
 
+	// fmt.Println("+++++++++++", c)
+
+	cc, err := grpc.Dial(c.Auth_port, grpc.WithTransportCredentials(insecure.NewCredentials()))
+	// fmt.Println(c.Auth_port, "\n", cc)
 	if err != nil {
 		fmt.Println("cound not connect: ", err)
 	}
