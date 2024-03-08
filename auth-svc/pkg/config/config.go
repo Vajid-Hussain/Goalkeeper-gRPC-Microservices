@@ -3,11 +3,11 @@ package config
 import "github.com/spf13/viper"
 
 type Config struct {
-	Port       string `mapstructure:"PORT"`
-	DBUrl      string `mapstructure:"DB_URL"`
-	JwtSecret  string `mapstructure:"JWT_SECRET_KEY"`
-	AppPasskey string `mapstructure:"SECRETKEY"`
-	FromEmail  string `mapstructure:"FROM"`
+	Port        string `mapstructure:"PORT"`
+	DBUrl       string `mapstructure:"DB_URL"`
+	JwtSecret   string `mapstructure:"JWT_SECRET_KEY"`
+	AppPasskey  string `mapstructure:"SECRETKEY"`
+	FromEmail   string `mapstructure:"FROM"`
 	MailSvcPort string `mapstructure:"MAILSVCPORT"`
 }
 

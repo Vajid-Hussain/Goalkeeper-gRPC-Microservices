@@ -18,6 +18,7 @@ func NewAuthServices(authUsecase usecaseinterface.IAuthUsecase) *Service {
 }
 
 func (s *Service) Register(ctx context.Context, req *pb.RegisterRequest) (*pb.RegisterResponse, error) {
+	
 	// fmt.Println("----", req.Email, req.Password)
 	var user = reqestmodel.User{Email: req.Email, Password: req.Password}
 

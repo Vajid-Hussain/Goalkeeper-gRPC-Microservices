@@ -26,3 +26,4 @@ func InitializeService(config *config.Config) *service.Service {
 
 	return service
 }
+	
