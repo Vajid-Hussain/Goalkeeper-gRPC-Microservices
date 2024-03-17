@@ -43,8 +43,8 @@ Goalkeeper is a distributed system built using gRPC and microservices that helps
 **Deployment**
 
 * **Development (Docker Compose):**
-   1. `docker-compose up -d` 
+    `docker-compose up -d` 
 
 * **Production (Kubernetes):**
-   1. `kubectl apply -f deploy.sh` 
+    `kubectl apply -f deploy.sh` 
 
