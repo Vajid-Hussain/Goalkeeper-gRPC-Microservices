@@ -2,6 +2,8 @@ package service
 
 import (
 	"context"
+	"errors"
+	"regexp"
 
 	reqestmodel "github.com/vajid-hussain/grpc-microservice-auth-svc/pkg/models/reqestModel"
 	"github.com/vajid-hussain/grpc-microservice-auth-svc/pkg/pb"
@@ -18,7 +20,12 @@ func NewAuthServices(authUsecase usecaseinterface.IAuthUsecase) *Service {
 }
 
 func (s *Service) Register(ctx context.Context, req *pb.RegisterRequest) (*pb.RegisterResponse, error) {
-	
+
+	r, _ := regexp.Compile("p([a-zA-Z0-9!@#$%^&*]+)ch")
+	if !r.MatchString(req.Password) {
+		return nil, errors.New("password not meat the critiria")
+	}
+
 	// fmt.Println("----", req.Email, req.Password)
 	var user = reqestmodel.User{Email: req.Email, Password: req.Password}
 

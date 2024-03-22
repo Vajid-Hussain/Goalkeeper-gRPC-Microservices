@@ -88,3 +88,6 @@
 2024/02/28 07:00:00 <nil>%!(EXTRA *status.Error=rpc error: code = Unavailable desc = connection error: desc = "transport: Error while dialing: dial tcp :3003: connect: connection refused")
 2024/02/28 07:01:00 <nil>%!(EXTRA *status.Error=rpc error: code = Unavailable desc = connection error: desc = "transport: Error while dialing: dial tcp :3003: connect: connection refused")
 2024/02/28 07:01:00 <nil>%!(EXTRA *status.Error=rpc error: code = Unavailable desc = connection error: desc = "transport: Error while dialing: dial tcp :3003: connect: connection refused")
+2024/03/08 17:44:08 Failed to setup TLS: open ./../../service.pem: no such file or directory
+2024/03/08 17:44:32 Failed to setup TLS: open ./../../service.pem: no such file or directory
+2024/03/08 17:44:45 Failed to setup TLS: open ./../../service.pem: no such file or directory
